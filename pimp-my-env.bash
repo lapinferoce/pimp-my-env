@@ -94,8 +94,8 @@ function config_vim {
 
 
 
-function default_vim{
-cat <<EOF > $HOME/.vimrc
+function default_vim {
+cat<<EOF > $HOME/.vimrc
 " ~/.vimrc (configuration file for vim only)
 " skeletons
 function! SKEL_spec()
