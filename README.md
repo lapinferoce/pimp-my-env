@@ -14,3 +14,13 @@ Note
 ====
 
 Only been tested on debian/ubuntu but should work on other distro
+
+
+settings up:
+-----------
+
+
+-> oh-my-zsh
+-> tmux
+-> vim
+-> powerline
