@@ -9,7 +9,6 @@ function require_module {
     {
         if ($0 ~ /include_default_resource/)
             {
-                print $2
                 system("cat ./resource/" $2 "/default")
             }
         else

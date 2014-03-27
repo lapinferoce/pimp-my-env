@@ -90,7 +90,6 @@ function config_zsh {
 
 function default_vim {
 cat<<EOF >> $HOME/.vimrc
-vimrc
 " -----------------------------------------------------------------------------
 "  custom settings
 " ----------------------------------------------------------------------------
@@ -156,7 +155,6 @@ EOF
 
 function default_tmux {
 cat<< EOF > $HOME/.tmux.conf
-tmux.conf
 use UTF8
 set -g utf8
 set-window-option -g utf8 on
