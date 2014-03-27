@@ -51,6 +51,7 @@ function config_powerline {
 
 function config_vim {
     cd $HOME
+    echo "VIM Configuration"
     select viml in "skip" "custom configuration" "use full vundle (with powerline support)" ;do
         case $REPLY in
             1)
@@ -71,6 +72,7 @@ function config_vim {
 }
 function config_tmux {
     cd $HOME
+    echo "TMUX Configuration"
     select viml in "skip" "custom configuration" "with powerline support (not yet implemented)" ;do
         case $REPLY in
             1)
@@ -158,8 +160,8 @@ EOF
 }
 
 function default_tmux {
-cat<< EOF > $HOME/.tmuxrc
- use UTF8
+cat<< EOF > $HOME/.tmux.conf
+use UTF8
 set -g utf8
 set-window-option -g utf8 on
 
