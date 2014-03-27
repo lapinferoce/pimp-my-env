@@ -57,7 +57,7 @@ function config_powerline {
                 cp $HOME/powerline/font/PowerlineSymbols.otf  ~/.fonts/
                 fc-cache -vf ~/.fonts/
                 mkdir -p ~/.config/fontconfig/conf.d/
-                cp $OME/powerline/font/10-powerline-symbols.conf  ~/.config/fontconfig/
+                cp $HOME/powerline/font/10-powerline-symbols.conf  ~/.config/fontconfig/
                 break;;
             esac
     done
