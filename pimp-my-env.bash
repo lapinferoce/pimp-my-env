@@ -87,46 +87,10 @@ function config_vim {
 
 
 function default_vim {
-    cat<<EOF > $HOME/.vimrc
-" ~/.vimrc (configuration file for vim only)
-" skeletons
-function! SKEL_spec()
-        0r /usr/share/vim/current/skeletons/skeleton.spec
-        language time en_US
-        if $USER != ''
-            let login = $USER
-        elseif $LOGNAME != ''
-            let login = $LOGNAME
-        else
-            let login = 'unknown'
-        endif
-        let newline = stridx(login, "\n")
-        if newline != -1
-            let login = strpart(login, 0, newline)
-        endif
-        if $HOSTNAME != ''
-            let hostname = $HOSTNAME
-        else
-            let hostname = system('hostname -f')
-            if v:shell_error
-                let hostname = 'localhost'
-            endif
-        endif
-        let newline = stridx(hostname, "\n")
-        if newline != -1
-            let hostname = strpart(hostname, 0, newline)
-        endif
-        exe "%s/specRPM_CREATION_DATE/" . strftime("%a\ %b\ %d\ %Y") . "/ge"
-        exe "%s/specRPM_CREATION_AUTHOR_MAIL/" . login . "@" . hostname . "/ge"
-        exe "%s/specRPM_CREATION_NAME/" . expand("%:t:r") . "/ge"
-        setf spec
-endfunction
-autocmd BufNewFile      *.spec  call SKEL_spec()
-"" -----------------------------------------------------------------------------                                                                                                                           ----------
-""  custom settings
-"" -----------------------------------------------------------------------------                                                                                                                           ----------
-
-" http://www.sukria.net/code/vimrc.html
+cat<<EOF >> $HOME/.vimrc
+" -----------------------------------------------------------------------------
+"  custom settings
+" ----------------------------------------------------------------------------
 set background=light
 set t_Co=256
 colorscheme default
@@ -150,7 +114,7 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 set hlsearch                    " highlight matches
 set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
-set smartcase                   " ... unless they contain at least one capital l                                                                                                                           etter
+set smartcase                   " ... unless they contain at least one capital 
 ""extra
 set nocompatible
 
@@ -160,7 +124,7 @@ set smartindent
 "set lbr
 set laststatus=2              " barre de status always visible
 set statusline=\ %<%f%h%m%r%=%{&ff}\ %l,%c%V\ %P
-"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\                                                                                                                            %l/%L:%c
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\%l/%L:%c
 
 
 function! CurDir()
