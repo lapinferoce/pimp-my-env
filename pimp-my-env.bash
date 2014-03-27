@@ -50,14 +50,14 @@ function config_powerline {
                 git clone https://github.com/Lokaltog/powerline.git
                 cd powerline
                 su -c python setup.py install
-                echo "$HOME/powerline/powerline/bindings/zsh/powerline.zsh" >> ./.zshrc
+                echo "$HOME/powerline/powerline/bindings/zsh/powerline.zsh" >> $HOME/.zshrc
                 echo "export TERM=xterm-256color"
                 mkdir -p $HOME/.config/fontconfig/a
-                mkdir -p ~/.fonts/
-                cp $HOME/powerline/font/PowerlineSymbols.otf  ~/.fonts/
-                fc-cache -vf ~/.fonts/
-                mkdir -p ~/.config/fontconfig/conf.d/
-                cp $HOME/powerline/font/10-powerline-symbols.conf  ~/.config/fontconfig/
+                mkdir -p $HOME/.fonts/
+                cp $HOME/powerline/font/PowerlineSymbols.otf  $HOME/.fonts/
+                fc-cache -vf $HOME/.fonts/PowerlineSymbols.otf
+                mkdir -p $HOME/.config/fontconfig/conf.d/
+                cp $HOME/powerline/font/10-powerline-symbols.conf  $HOME/.config/fontconfig/
                 break;;
             esac
     done
