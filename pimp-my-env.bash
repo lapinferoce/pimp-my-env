@@ -1,20 +1,5 @@
 #!/usr/bin/env bash
 
-#DISTRO=`grep -ihs "buntu\|SUSE\|Fedora\|PCLinuxOS\|MEPIS\|Mandriva\|Debian\|Damn\|Sabayon\|Slackware\|KNOPPIX\|Gentoo\|Zenwalk\|Mint\|Kubuntu\|FreeBSD\|Puppy\|Freespire\|Vector\|Dreamlinux\|CentOS\|Arch\|Xandros\|Elive\|SLAX\|Red\|BSD\|KANOTIX\|Nexenta\|Foresight\|GeeXboX\|Frugalware\|64\|SystemRescue\|Novell\|Solaris\|BackTrack\|KateOS\|Pardus" /etc/{issue,*release,*version}`
-
-#function install_zsh(){
-   #sudo pacman -S zsh       #Archlinux
-#   su -c  apt-get install zsh #Debian/Ubuntu
-   #sudo  yum install zsh     #RedHat/CentOs
-#}
-
-
-#if which zsh >/dev/null;then
-#    echo "zsh found"
-#else 
-#    install_zsh
-#fi
-
 function required {
     if which $1 > /dev/null;then
         echo -n "."
@@ -84,6 +69,27 @@ function config_vim {
 
     done
 }
+function config_tmux {
+    cd $HOME
+    select viml in "skip" "custom configuration" "with powerline support (not yet implemented)" ;do
+        case $REPLY in
+            1)
+                echo "skipping tmux"
+                break;;
+            2)
+                echo "custom tmux"
+                default_tmux
+                break;;
+            *)
+                echo "xxx not yet implemented xxx "
+                break;;
+        esac
+
+    done
+}
+
+
+
 
 
 function default_vim {
@@ -151,7 +157,124 @@ cmap ln set invnumber<CR>
 EOF
 }
 
-for p in "zsh" "python" "git" "wget" "vim"
+function default_tmux {
+cat<< EOF > $HOME/.tmuxrc
+ use UTF8
+set -g utf8
+set-window-option -g utf8 on
+
+# make tmux display things in 256 colors
+set -g default-terminal "screen-256color"
+
+# set scrollback history to 10000 (10k)
+set -g history-limit 10000
+
+# set Ctrl-a as the default prefix key combination
+# and unbind C-b to free it up
+set -g prefix C-a
+unbind C-b
+
+# use send-prefix to pass C-a through to application
+bind C-a send-prefix
+
+# shorten command delay
+set -sg escape-time 1
+
+# set window and pane index to 1 (0 by default)
+set-option -g base-index 1
+setw -g pane-base-index 1
+
+# reload ~/.tmux.conf using PREFIX r
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
+
+# use PREFIX | to split window horizontally and PREFIX - to split vertically
+bind | split-window -h
+bind - split-window -v
+
+# Make the current window the first window
+bind T swap-window -t 1
+
+# map Vi movement keys as pane movement keys
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# and use C-h and C-l to cycle thru panes
+bind -r C-h select-window -t :-
+bind -r C-l select-window -t :+
+
+# resize panes using PREFIX H, J, K, L
+bind H resize-pane -L 5
+bind J resize-pane -D 5
+bind K resize-pane -U 5
+bind L resize-pane -R 5
+
+# explicitly disable mouse control
+setw -g mode-mouse off
+set -g mouse-select-pane off
+set -g mouse-resize-pane off
+set -g mouse-select-window off
+
+# ---------------------
+# Copy & Paste
+# ---------------------
+# provide access to the clipboard for pbpaste, pbcopy
+set-option -g default-command "reattach-to-user-namespace -l zsh"
+set-window-option -g automatic-rename on
+
+# use vim keybindings in copy mode
+setw -g mode-keys vi
+
+# setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+
+# update default binding of 'Enter' to also use copy-pipe
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+
+bind y run 'tmux save-buffer - | reattach-to-user-namespace pbcopy '
+bind C-y run 'tmux save-buffer - | reattach-to-user-namespace pbcopy '
+
+# ----------------------
+# set some pretty colors
+# ----------------------
+# set pane colors - hilight the active pane
+set-option -g pane-border-fg colour235 #base02
+set-option -g pane-active-border-fg colour240 #base01
+
+# colorize messages in the command line
+set-option -g message-bg black #base02
+set-option -g message-fg brightred #orange
+
+# ----------------------
+# Status Bar
+# -----------------------
+set-option -g status on                # turn the status bar on
+set -g status-utf8 on                  # set utf-8 for the status bar
+set -g status-interval 5               # set update frequencey (default 15 seconds)
+set -g status-justify centre           # center window list for clarity
+# set-option -g status-position top    # position the status bar at top of screen
+
+# visual notification of activity in other windows
+setw -g monitor-activity on
+set -g visual-activity on
+
+# set color for status bar
+set-option -g status-bg colour235 #base02
+set-option -g status-fg yellow #yellow
+set-option -g status-attr dim 
+
+# set window list colors - red for active and cyan for inactive
+set-window-option -g window-status-fg brightblue #base0
+set-window-option -g window-status-bg colour236 
+set-window-option -g window-status-attr dim
+EOF
+}
+
+
+for p in "zsh" "python" "git" "wget" "vim" "tmux"
 do
     required $p
 done
@@ -159,3 +282,4 @@ done
 config_zsh
 config_powerline
 config_vim
+config_tmux
