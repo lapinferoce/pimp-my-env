@@ -8,10 +8,11 @@ function config_powerline {
                 break;;
             *)
                 git clone https://github.com/Lokaltog/powerline.git
+                chmod a+x ./powerline -Rv
                 cd powerline
                 su -c python setup.py install
-                echo "$HOME/powerline/powerline/bindings/zsh/powerline.zsh" >> $HOME/.zshrc
                 echo "export TERM=xterm-256color" >> $HOME/.zshrc
+                echo ". $HOME/powerline/powerline/bindings/zsh/powerline.zsh" >> $HOME/.zshrc
                 mkdir -p $HOME/.config/fontconfig/a
                 mkdir -p $HOME/.fonts/
                 cp $HOME/powerline/font/PowerlineSymbols.otf  $HOME/.fonts/
