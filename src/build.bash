@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FINAL_NAME="pimp-my-env.bash"
+FINAL_NAME="../pimp-my-env.bash"
 
 function require_module {
     echo "" #>> $FINAL_NAME
@@ -15,11 +15,11 @@ function require_module {
         else
             print $0
     }
-    END{}'
- # >> $FINAL_NAME
+    END{}'>> $FINAL_NAME
+ # 
 }
 
 
-echo "#!/usr/bin/env bash" #> $FINAL_NAME
+echo "#!/usr/bin/env bash" > $FINAL_NAME
 . ./pimp-my-env.conf
 
