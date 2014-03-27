@@ -38,10 +38,10 @@ function config_zsh {
     done
 }
 
-function config_powerline{
+function config_powerline {
     cd $HOME
     echo "POWELINE Configuration"
-    select "skip" "install & setup"
+    select pwl in "skip" "install & setup"; do
         case $REPLY in
             1)
                 echo "skipping powerline setup "
