@@ -20,7 +20,7 @@ settings up:
 -----------
 
 
--> oh-my-zsh
--> tmux
--> vim
--> powerline
+* oh-my-zsh
+* tmux
+* vim
+* powerline
