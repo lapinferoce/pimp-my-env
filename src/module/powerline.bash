@@ -13,9 +13,13 @@ function config_powerline {
                 su -c python setup.py install
                 echo "export TERM=xterm-256color" >> $HOME/.zshrc
                 echo ". $HOME/powerline/powerline/bindings/zsh/powerline.zsh" >> $HOME/.zshrc
-                mkdir -p $HOME/.config/fontconfig/a
+                mkdir -p $HOME/.config/fontconfig/
                 mkdir -p $HOME/.fonts/
                 cp $HOME/powerline/font/PowerlineSymbols.otf  $HOME/.fonts/
+                cd $HOME/.fonts/
+                mkfontdir
+                mkfontscale
+                cd $HOME
                 fc-cache -vf $HOME/.fonts/PowerlineSymbols.otf
                 mkdir -p $HOME/.config/fontconfig/conf.d/
                 cp $HOME/powerline/font/10-powerline-symbols.conf  $HOME/.config/fontconfig/conf.d
