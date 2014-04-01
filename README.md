@@ -24,3 +24,8 @@ settings up:
 * tmux
 * vim
 * powerline
+
+TOdo:
+----
+
+* work on the tmux configuration 
